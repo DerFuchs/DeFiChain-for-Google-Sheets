@@ -12,7 +12,8 @@ const config = {
     "general": "https://api.defichain.io/v1/",
     "mainnet": "http://mainnet-api.defichain.io/api/DFI/mainnet/",
   },
-  "fractions": 100000000 // parts in which 1 DFI can be split up, similar to BTC <-> Satoshis
+  "fractions": 100000000, // parts in which 1 DFI can be split up, similar to BTC <-> Satoshis
+  "cachingTime": 10 // in Minutes
 };
 
 // -----------------------------------------------------------
@@ -47,7 +48,7 @@ function callDefiChainApi(resource, apiType = "mainnet")
     // initialize some stuff
     var data = {};
     const CACHE_KEY = "DEFICHAIN__" + MD5(url)
-    var cache = CacheService.getUserCache()  
+    var cache = CacheService.getUserCache()
 
     // first check if there's a cached version available
     var cached = cache.get(CACHE_KEY);
@@ -57,14 +58,13 @@ function callDefiChainApi(resource, apiType = "mainnet")
 
     // else, fetch it from API and cache it
     else {
-
       // Send request
       var response = UrlFetchApp.fetch(url, {muteHttpExceptions: true, validateHttpsCertificates: true})
       data = JSON.parse(response.getContentText())
     
-      // If everything went fine, cache the raw data returned
+      // If request response is valid, store it in the cache
       if (response && response.getResponseCode() == 200 && data.length > 1 && data.length < 99900) {
-        cache.put(CACHE_KEY, response.getContentText(), data["caching_time"] || 60)
+        cache.put(CACHE_KEY, response.getContentText(), config.cachingTime)
       }
     }
 
