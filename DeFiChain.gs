@@ -47,9 +47,7 @@ function callDefiChainApi(resource, apiType = "mainnet")
     // initialize some stuff
     var data = {};
     const CACHE_KEY = "DEFICHAIN__" + MD5(url)
-    var cache = CacheService.getUserCache()
-    
-    console.log(CACHE_KEY)
+    var cache = CacheService.getUserCache()  
 
     // first check if there's a cached version available
     var cached = cache.get(CACHE_KEY);
