@@ -26,6 +26,7 @@
         <ul>
             <li>General Blockchain Information</li>
             <li>Address Balance</li>
+            <li>Price</li>          
         </ul>
     </li>
     <li><a href="#roadmap">Roadmap</a></li>
