@@ -42,7 +42,7 @@ function callDefiChainApi(resource, apiType = "mainnet")
 {
   url = config.apiUrls[apiType] + resource
 
-  // Fetch data
+  // fetch data
   try {
 
     // initialize some stuff
@@ -58,21 +58,18 @@ function callDefiChainApi(resource, apiType = "mainnet")
 
     // else, fetch it from API and cache it
     else {
-      // Send request
+      // send request
       var response = UrlFetchApp.fetch(url, {muteHttpExceptions: true, validateHttpsCertificates: true})
       data = JSON.parse(response.getContentText())
     
-      // If request response is valid, store it in the cache
+      // if request response is valid, store it in the cache
       if (response && response.getResponseCode() == 200 && data.length > 1 && data.length < 99900) {
         cache.put(CACHE_KEY, response.getContentText(), config.cachingTime)
       }
     }
-
-    // Return the Balance in full DFI
+    // return the data
     return data
-
   }
-
   catch (e) {    
     throw new Error(e.message)
   }
@@ -91,7 +88,7 @@ function callDefiChainApi(resource, apiType = "mainnet")
 function DEFICHAIN_ADDRESS_BALANCE(address, refresh_cell) 
 {
 
-  // Sanitize input
+  // sanitize input
   address = (address + "") || "";
  
   try {    
@@ -116,7 +113,7 @@ function DEFICHAIN_ADDRESS_BALANCE(address, refresh_cell)
 function DEFICHAIN_INFO(name, refresh_cell) 
 {
 
-  // Sanitize input
+  // sanitize input
   name = (name + "") || "";
   try { 
     // some stuff
@@ -176,15 +173,15 @@ function DEFICHAIN_INFO(name, refresh_cell)
  */
 function DEFICHAIN_PRICE(coinSymbol, refresh_cell)
 {
-  // Sanitize input
+  // sanitize input
   coinSymbol = (coinSymbol + "") || "";
 
   try {    
     const data = callDefiChainApi("listswaps", "general")
-    const pair = coinSymbol.toUpperCase() + "_DFI"
+    const pair = coinSymbol.toUpperCase() + "_DFI" 
 
     if (!(pair in data)) {
-      return
+      throw new Error("Unknown coin '" + coinSymbol + "'")
     }   
 
     return 1 / data[pair].last_price  
