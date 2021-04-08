@@ -89,7 +89,8 @@ function callDefiChainApi(resource, apiType = "mainnet")
  * @return The current balance of this particular address. Will return 0 even if address does not exist.
  * @customfunction
  */
-function DEFICHAIN_ADDRESS_BALANCE(address, refresh_cell) {
+function DEFICHAIN_ADDRESS_BALANCE(address, refresh_cell) 
+{
 
   // Sanitize input
   var address = (address + "") || "";
@@ -114,7 +115,8 @@ function DEFICHAIN_ADDRESS_BALANCE(address, refresh_cell) {
  * @return the requested data key from DeFiChain's info endpoint from it's general API
  * @customfunction
  */
-function DEFICHAIN_INFO(name, refresh_cell) {
+function DEFICHAIN_INFO(name, refresh_cell) 
+{
 
   // Sanitize input
   var name = (name + "") || "";
@@ -160,6 +162,31 @@ function DEFICHAIN_INFO(name, refresh_cell) {
 
   return result;
 }
+
+// -----------------------------------------------------------
+
+/**
+ * Returns the current price for one DFI in that particular coin
+ *
+ * @param {"USDT | BTC | ETH | BCH | LTC | DOGE"} coin Symbol of a supported coin
+ * @param {"Empty cell reference"} refresh_cell ONLY on 2nd argument. Reference an empty cell and change its content to force refresh the rates. 
+ * @return The current price for one DFI in that particular coin
+ * @customfunction
+ */
+function DEFICHAIN_PRICE(coinSymbol, refresh_cell)
+{
+  const data = callDefiChainApi("listswaps", "general")
+  const pair = coinSymbol.toUpperCase() + "_DFI"
+
+  if (!(pair in data)) {
+    return
+  }
+
+  return 1 / data[pair].last_price  
+}
+
+
+// -----------------------------------------------------------
 
 /**
  * https://gist.github.com/KEINOS/78cc23f37e55e848905fc4224483763d
