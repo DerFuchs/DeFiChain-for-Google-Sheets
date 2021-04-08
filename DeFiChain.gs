@@ -73,9 +73,8 @@ function callDefiChainApi(resource, apiType = "mainnet")
 
   }
 
-  catch (e) {
-    var msg = e.message.replace(/https:\/\/api.*$/gi,'')
-    throw new Error(msg)
+  catch (e) {    
+    throw new Error(e.message)
   }
 }
 
@@ -93,15 +92,14 @@ function DEFICHAIN_ADDRESS_BALANCE(address, refresh_cell)
 {
 
   // Sanitize input
-  var address = (address + "") || "";
+  address = (address + "") || "";
  
   try {    
     data = callDefiChainApi("/address/" + address + "/balance")
     return fractionsToDfi(data["balance"])    
   }
-  catch (e) {
-    var msg = e.message.replace(/https:\/\/api.*$/gi,'')
-    throw new Error(msg)
+  catch (e) {    
+    throw new Error(e.message)
   }
 }
 
@@ -119,48 +117,51 @@ function DEFICHAIN_INFO(name, refresh_cell)
 {
 
   // Sanitize input
-  var name = (name + "") || "";
-  
-  // some stuff
-  const data = callDefiChainApi("stats", "general")
-  var result = null
+  name = (name + "") || "";
+  try { 
+    // some stuff
+    const data = callDefiChainApi("stats", "general")
+    var result = null
 
-  switch (name) {
-    case "block_height":
-      result = data.blockHeight 
-      break;
+    switch (name) {
+      case "block_height":
+        result = data.blockHeight 
+        break;
 
-    case "difficulty":
-      result = data.difficulty 
-      break;
+      case "difficulty":
+        result = data.difficulty 
+        break;
 
-    case "median_time": 
-      result = data.medianTime
-      break;
+      case "median_time": 
+        result = data.medianTime
+        break;
 
-    case "max_supply":
-      result = data.tokens.max
-      break;
+      case "max_supply":
+        result = data.tokens.max
+        break;
 
-    case "current_total_supply":
-      result = data.supply.total
-      break;
+      case "current_total_supply":
+        result = data.supply.total
+        break;
 
-    case "current_circulating_supply":
-      result = data.supply.circilation
-      break;
+      case "current_circulating_supply":
+        result = data.supply.circilation
+        break;
 
-    case "current_foundation_supply":
-      result = data.supply.foundation
-      break;
+      case "current_foundation_supply":
+        result = data.supply.foundation
+        break;
 
-    case "current_community_supply":
-      result = data.supply.community
-      break;
+      case "current_community_supply":
+        result = data.supply.community
+        break;
 
+    }
+    return result;
   }
-
-  return result;
+  catch (e) {    
+    throw new Error(e.message)
+  }    
 }
 
 // -----------------------------------------------------------
@@ -175,14 +176,22 @@ function DEFICHAIN_INFO(name, refresh_cell)
  */
 function DEFICHAIN_PRICE(coinSymbol, refresh_cell)
 {
-  const data = callDefiChainApi("listswaps", "general")
-  const pair = coinSymbol.toUpperCase() + "_DFI"
+  // Sanitize input
+  coinSymbol = (coinSymbol + "") || "";
 
-  if (!(pair in data)) {
-    return
+  try {    
+    const data = callDefiChainApi("listswaps", "general")
+    const pair = coinSymbol.toUpperCase() + "_DFI"
+
+    if (!(pair in data)) {
+      return
+    }   
+
+    return 1 / data[pair].last_price  
   }
-
-  return 1 / data[pair].last_price  
+  catch (e) {    
+    throw new Error(e.message)
+  }
 }
 
 
@@ -275,7 +284,6 @@ function MD5( input, isShortMode )
 
     // change below to "txtHash.toUpperCase()" if needed
     return txtHash;
-
 }
 // -----------------------------------------------------------
 // -----------------------------------------------------------
