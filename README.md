@@ -71,7 +71,7 @@ Gives you some common information about the blockhain's status
 =DEFICHAIN_INFO("information_key")
 ```
 
-possible information_key:
+possible information_keys:
 * block_height 
 * difficulty
 * median_time
@@ -85,10 +85,24 @@ possible information_key:
 ### Address balance
 Gives you the current balance of a particular DeFiChain Address.
 
-
 ```
 =DEFICHAIN_ADDRESS_BALANCE("DeFiChainAddressYouWantToKnow")
 ```
+
+### Price
+Gives you the current price for one DFI in that particular coin
+
+```
+=DEFICHAIN_PRICE("COIN_SYMBOL")
+```
+
+possible COIN_SYMBOLs:
+* USDT 
+* BTC
+* ETH
+* BCH
+* LTC
+* DOGE
 
 
 ### Update On Premise
@@ -100,6 +114,8 @@ Now you can use that cell as a update reference. Let's assume you inserted that 
 ```
 =DEFICHAIN_INFO("block_height", $A$1)
 ```
+
+Now, the cell will update when you check or un-check the box.
 
 NOTE: You may have to use a semi-colon (;) instead of comma (,) depending on your language setting in your Google Sheets document. If you get an error, please try using ; instead of ,
 
