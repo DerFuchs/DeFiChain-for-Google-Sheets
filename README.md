@@ -91,7 +91,7 @@ Gives you the current balance of a particular DeFiChain Address.
 ```
 
 ### Price
-Gives you the current price for one DFI in that particular coin
+Gives you the current price for one DFI in that particular coin. That price is read from the DeFiChain Decentralized Exchange (DEX).
 
 ```
 =DEFICHAIN_PRICE("COIN_SYMBOL")
