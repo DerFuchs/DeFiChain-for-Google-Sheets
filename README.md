@@ -3,7 +3,7 @@
   <h3 align="center">DeFiChain for Google Sheets</h3>
 
   <p align="center">
-    A Google Apps Script for accessing DeFiChain's official APIs
+    A Google Apps Script for accessing balances and prices from the DeFiChain (DFI) using it's official APIs
     <br />
     <a href="https://github.com/DerFuchs/DeFiChain-for-Google-Sheets"><strong>Explore the docs »</strong></a>
     <br />
@@ -41,7 +41,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About DeFiChain for Google Sheets
 
-This adds the ability to import balances and other data from the DeFiChain Blockchain into Google Sheets by requesting data from the official DeFiChain APIs.
+This adds the ability to insert and update balances and other data from the DeFiChain Blockchain into Google Sheets by requesting data from the official DeFiChain APIs.
 
 
 <!-- INSTALLATION -->
