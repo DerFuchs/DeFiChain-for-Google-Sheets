@@ -115,6 +115,7 @@ function DEFICHAIN_INFO(name, refresh_cell)
 
   // sanitize input
   name = (name + "") || "";
+  
   try { 
     // some stuff
     const data = callDefiChainApi("stats", "general")
@@ -191,6 +192,37 @@ function DEFICHAIN_PRICE(coinSymbol, refresh_cell)
   }
 }
 
+// -----------------------------------------------------------
+
+/**
+ * Returns the current count of minted blocks by this collateral address
+ *
+ * @param {"DFI_STAKING_COLLATERAL_ADDRESS"} address Something like "8RUNjYgCHkT56t4C38YaaDvUQcY4HozdcD"
+ * @param {"Empty cell reference"} refresh_cell ONLY on 2nd argument. Reference an empty cell and change its content to force refresh the rates. 
+ * @return The current count of minted blocks by this collateral address.
+ * @customfunction
+ */
+function DEFICHAIN_MINTED_BLOCKS(address, refresh_cell)
+{
+  // sanitize input
+  address = (address + "") || "";
+
+  try {    
+    const data = callDefiChainApi("/address/" + address + "/txs")
+    let counter = 0
+
+    data.forEach(function(tx) {      
+      if (tx.coinbase) {
+        counter++
+      }
+    })
+
+    return counter
+  }
+  catch (e) {    
+    throw new Error(e.message)
+  } 
+}
 
 // -----------------------------------------------------------
 
