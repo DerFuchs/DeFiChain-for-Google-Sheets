@@ -26,7 +26,8 @@
         <ul>
             <li>General Blockchain Information</li>
             <li>Address Balance</li>
-            <li>Price</li>          
+            <li>Price</li>
+            <li>Minted blocks</li>
         </ul>
     </li>
     <li><a href="#roadmap">Roadmap</a></li>
