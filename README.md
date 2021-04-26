@@ -106,6 +106,14 @@ possible COIN_SYMBOLs:
 * DOGE
 
 
+
+### Minted blocks from staking collateral address
+Gives you the current count of minted blocks of that particular staking collateral.
+
+```
+=DEFICHAIN_MINTED_BLOCKS("DeFiChainStakingCollateralAddress")
+```
+
 ### Update On Premise
 
 You can interactively request an update of the data by adding the name of a cell which can be changed to every function as a second parameter.
@@ -118,7 +126,10 @@ Now you can use that cell as a update reference. Let's assume you inserted that 
 
 Now, the cell will update when you check or un-check the box.
 
-NOTE: You may have to use a semi-colon (;) instead of comma (,) depending on your language setting in your Google Sheets document. If you get an error, please try using ; instead of ,
+
+### NOTE 
+
+You may have to use a semi-colon (;) instead of comma (,) depending on your language setting in your Google Sheets document. If you get an error, please try using ; instead of ,
 
 
 ### Didn't find what you need?
