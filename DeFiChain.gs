@@ -9,7 +9,8 @@
  */
 const config = {  
   "apiUrls": {
-    "general": "https://api.defichain.io/v1/",
+    //"general": "https://api.defichain.io/v1/",
+    "general": "https://dexprice.defichain-masternode-monitor.com/v1/",
     "mainnet": "http://mainnet-api.defichain.io/api/DFI/mainnet/",
   },
   "fractions": 100000000, // parts in which 1 DFI can be split up, similar to BTC <-> Satoshis
@@ -184,8 +185,7 @@ function DEFICHAIN_PRICE(coinSymbol, refresh_cell)
     if (!(pair in data)) {
       throw new Error("Unknown coin '" + coinSymbol + "'")
     }   
-
-    return 1 / data[pair].last_price  
+    return Number.parseFloat(data[pair].last_price).toFixed(8)  
   }
   catch (e) {    
     throw new Error(e.message)
